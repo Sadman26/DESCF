@@ -79,9 +79,10 @@ public class MainActivity extends AppCompatActivity {
                             String loc = rescue_loc.getText().toString();
                             String randomid= java.util.UUID.randomUUID().toString().substring(0, 4);
                             Snake model = new Snake(id, name, auth_name, loc, url,currtimeDate,randomid);
+                            SnakeRelease model2=new SnakeRelease(id,randomid);
                             String uid=database.getReference().push().getKey();
-                            //database.getReference().child("release").child(randomid)
-                            database.getReference().child("rescue").child(id).child(uid).setValue(model).addOnSuccessListener(aVoid -> {
+                            database.getReference().child("admin").child("rescue").child(uid).setValue(model);
+                            database.getReference().child("rescue").child(randomid).setValue(model2).addOnSuccessListener(aVoid -> {
                                 dialog.dismiss();
                                 Toast.makeText(MainActivity.this, "Rescue Added Successfully", Toast.LENGTH_SHORT).show();
                             });
@@ -94,8 +95,10 @@ public class MainActivity extends AppCompatActivity {
                     String loc = rescue_loc.getText().toString();
                     String randomid= java.util.UUID.randomUUID().toString().substring(0, 4);
                     Snake model = new Snake(id, name, auth_name, loc, "No Image",currtimeDate,randomid);
+                    SnakeRelease model2=new SnakeRelease(id,randomid);
                     String uid=database.getReference().push().getKey();
-                    database.getReference().child("rescue").child(uid).setValue(model).addOnSuccessListener(aVoid -> {
+                    database.getReference().child("admin").child("rescue").child(uid).setValue(model);
+                    database.getReference().child("rescue").child(randomid).setValue(model2).addOnSuccessListener(aVoid -> {
                         dialog.dismiss();
                         Toast.makeText(MainActivity.this, "Rescue Added Successfully ", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, rescuecode.class);
