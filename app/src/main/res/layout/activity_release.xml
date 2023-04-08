@@ -24,7 +24,7 @@
          />
 
     <EditText
-        android:id="@+id/editTextTextPersonName5"
+        android:id="@+id/releasebyname"
         android:layout_width="254dp"
         android:layout_height="51dp"
         android:ems="10"
@@ -40,7 +40,7 @@
         app:layout_constraintVertical_bias="0.196" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine2"
+        android:id="@+id/releaseloc"
         android:layout_width="267dp"
         android:layout_height="63dp"
         android:ems="10"
@@ -57,20 +57,20 @@
         app:layout_constraintVertical_bias="0.312" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/releaseimgbtn"
         android:layout_width="66dp"
         android:layout_height="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2"
+        app:layout_constraintTop_toBottomOf="@+id/releaseloc"
         app:layout_constraintVertical_bias="0.066"
         app:srcCompat="@drawable/camera"
          />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/releasebtn"
         android:layout_width="116dp"
         android:layout_height="53dp"
         android:text="Submit"

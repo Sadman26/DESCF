@@ -42,7 +42,9 @@ public class givecode extends AppCompatActivity {
                             // Compare each child node with the user input
                             if (childKey.equals(givecode.getText().toString())) {
                                 // If a match is found, start the desired activity or intent
+
                                 Intent intent = new Intent(givecode.this, release.class);
+                                intent.putExtra("releasecode", givecode.getText().toString());
 
                                 startActivity(intent);
                                 break;
