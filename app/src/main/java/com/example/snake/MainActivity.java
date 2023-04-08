@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         rescue_auth_name = findViewById(R.id.rescue_auth_name);
         rescue_loc = findViewById(R.id.rescue_loc);
         rescue_photo = findViewById(R.id.rescue_photo);
-        //when press on rescue_photo i will select a photo and it will store path of that photo in selectedImage variable
         rescue_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
