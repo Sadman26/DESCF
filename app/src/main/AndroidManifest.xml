@@ -15,7 +15,7 @@
             android:name=".choose"
             android:exported="false" />
         <activity
-            android:name=".welcome"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".rescuecode"
@@ -27,7 +27,7 @@
             android:name=".givecode"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".welcome"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
