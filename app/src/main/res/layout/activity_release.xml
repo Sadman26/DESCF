@@ -24,6 +24,22 @@
          />
 
     <EditText
+        android:id="@+id/releaseauthorbyname"
+        android:layout_width="254dp"
+        android:layout_height="51dp"
+        android:background="@color/snake"
+        android:ems="10"
+        android:hint="Authorised By Name"
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.295" />
+
+    <EditText
         android:id="@+id/releasebyname"
         android:layout_width="254dp"
         android:layout_height="51dp"
@@ -43,18 +59,17 @@
         android:id="@+id/releaseloc"
         android:layout_width="267dp"
         android:layout_height="63dp"
-        android:ems="10"
         android:background="@color/snake"
-        android:textColor="@color/white"
-        android:hint="Enter Location"
+        android:ems="10"
         android:gravity="start|top"
+        android:hint="Enter Location"
         android:inputType="textMultiLine"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.312" />
+        app:layout_constraintVertical_bias="0.407" />
 
     <ImageView
         android:id="@+id/releaseimgbtn"
@@ -65,9 +80,8 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/releaseloc"
-        app:layout_constraintVertical_bias="0.066"
-        app:srcCompat="@drawable/camera"
-         />
+        app:layout_constraintVertical_bias="0.058"
+        app:srcCompat="@drawable/camera" />
 
     <Button
         android:id="@+id/releasebtn"
@@ -79,6 +93,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.575" />
+        app:layout_constraintVertical_bias="0.65" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

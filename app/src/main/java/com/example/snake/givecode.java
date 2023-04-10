@@ -39,18 +39,13 @@ public class givecode extends AppCompatActivity {
                         // Retrieve the children nodes
                         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                             String childKey = childSnapshot.getKey();
-                            // Compare each child node with the user input
                             if (childKey.equals(givecode.getText().toString())) {
-                                // If a match is found, start the desired activity or intent
-
+                                Toast.makeText(givecode.this, "Welcome ❤️!️", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(givecode.this, release.class);
-                                intent.putExtra("releasecode", givecode.getText().toString());
-
                                 startActivity(intent);
                                 break;
                             }
                             else{
-                                // If no match is found, display a toast message
                                 Toast.makeText(givecode.this, "Upps No Rescue!☺️", Toast.LENGTH_SHORT).show();
                             }
                         }

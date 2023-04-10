@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                             String name = rescue_name.getText().toString();
                             String auth_name = rescue_auth_name.getText().toString();
                             String loc = rescue_loc.getText().toString();
-                            String randomid= java.util.UUID.randomUUID().toString().substring(0, 4);
+                            String randomid= java.util.UUID.randomUUID().toString().substring(0, 5);
                             Snake model = new Snake(id, name, auth_name, loc, url,currtimeDate,randomid);
                             SnakeRelease model2=new SnakeRelease(id,randomid);
                             String uid=database.getReference().push().getKey();
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     String name = rescue_name.getText().toString();
                     String auth_name = rescue_auth_name.getText().toString();
                     String loc = rescue_loc.getText().toString();
-                    String randomid= java.util.UUID.randomUUID().toString().substring(0, 4);
+                    String randomid= java.util.UUID.randomUUID().toString().substring(0, 5);
                     Snake model = new Snake(id, name, auth_name, loc, "No Image",currtimeDate,randomid);
                     SnakeRelease model2=new SnakeRelease(id,randomid);
                     String uid=database.getReference().push().getKey();

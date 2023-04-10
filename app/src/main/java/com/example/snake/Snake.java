@@ -15,6 +15,21 @@ public class Snake {
         this.randomid=randomid;
     }
 
+    public Snake(String name, String loc, String photourl, String time) {
+        this.name = name;
+        this.loc = loc;
+        this.photourl = photourl;
+        this.time = time;
+    }
+
+    public Snake(String id, String name, String loc, String photourl, String time) {
+        this.id = id;
+        this.name = name;
+        this.loc = loc;
+        this.photourl = photourl;
+        this.time = time;
+    }
+
     public String getTime() {
         return time;
     }
