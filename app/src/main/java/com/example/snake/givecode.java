@@ -40,8 +40,9 @@ public class givecode extends AppCompatActivity {
                         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                             String childKey = childSnapshot.getKey();
                             if (childKey.equals(givecode.getText().toString())) {
-                                Toast.makeText(givecode.this, "Welcome ❤️!️", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(givecode.this, "Welcome ❤ !", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(givecode.this, release.class);
+                                intent.putExtra("code", givecode.getText().toString());
                                 startActivity(intent);
                                 break;
                             }
