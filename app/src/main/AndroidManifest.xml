@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Snake"
         tools:targetApi="31">
         <activity
+            android:name=".history"
+            android:exported="false" />
+        <activity
             android:name=".choose"
             android:exported="false" />
         <activity
