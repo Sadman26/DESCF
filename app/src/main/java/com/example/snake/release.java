@@ -28,6 +28,7 @@ import com.google.firebase.storage.StorageReference;
 
 public class release extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference ref = database.getReference("rescue");
     TextView loll;
     EditText releasebyname,releaseloc,releaseauthorbyname;
     ImageView releaseimgbtn;
@@ -35,6 +36,7 @@ public class release extends AppCompatActivity {
     Uri selectedImage;
     ProgressDialog dialog;
     Button releasebtn;
+    String snake_id;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -52,6 +54,16 @@ public class release extends AppCompatActivity {
         releaseloc = findViewById(R.id.releaseloc);
         releasebtn = findViewById(R.id.releasebtn);
         releaseimgbtn = findViewById(R.id.releaseimgbtn);
+        database.getReference().child("rescue").child(getIntent().getStringExtra("code")).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                snake_id = snapshot.child("snakeid").getValue(String.class);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         releaseimgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +102,7 @@ public class release extends AppCompatActivity {
                             String name = releasebyname.getText().toString();
                             String auth_name = releaseauthorbyname.getText().toString();
                             String loc = releaseloc.getText().toString();
-                            Snake model = new Snake(name, auth_name, loc, url,currtimeDate);
+                            Snake model = new Snake(snake_id,name, auth_name, loc, url,currtimeDate);
                             String uid=database.getReference().push().getKey();
                             database.getReference().child("admin").child("release").child(uid).setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -108,7 +120,7 @@ public class release extends AppCompatActivity {
                     String name = releasebyname.getText().toString();
                     String auth_name = releaseauthorbyname.getText().toString();
                     String loc = releaseloc.getText().toString();
-                    Snake model = new Snake(name, auth_name, loc, "No Image",currtimeDate);
+                    Snake model = new Snake(snake_id,name, auth_name, loc, "No Image",currtimeDate);
                     String uid=database.getReference().push().getKey();
                     database.getReference().child("admin").child("release").child(uid).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

@@ -5,7 +5,16 @@ public class Snake {
     public Snake() {
     }
 
-    public Snake(String id, String name, String auth_name, String loc, String photourl,String time,String randomid) {
+    public Snake(String id, String name, String auth_name, String loc, String photourl, String time) {
+        this.id = id;
+        this.name = name;
+        this.auth_name = auth_name;
+        this.loc = loc;
+        this.photourl = photourl;
+        this.time = time;
+    }
+
+    public Snake(String id, String name, String auth_name, String loc, String photourl, String time, String randomid) {
         this.id = id;
         this.name = name;
         this.auth_name = auth_name;
