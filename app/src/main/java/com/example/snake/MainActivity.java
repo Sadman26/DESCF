@@ -1,5 +1,6 @@
 package com.example.snake;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -27,6 +28,17 @@ public class MainActivity extends AppCompatActivity {
     Button rescuebtn;
     Uri selectedImage;
     ProgressDialog dialog;
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 45 && resultCode == RESULT_OK && data != null) {
+            selectedImage = data.getData();
+            rescue_photo.setImageURI(selectedImage);
+        }
+    }
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle("Rescue Page");
         dialog = new ProgressDialog(this);
-        dialog.setMessage("Uploading...");
+        dialog.setMessage("Uploading...☺️");
         dialog.setCancelable(false);
         rescuebtn = findViewById(R.id.rescuebtn);
         rescue_snk_id = findViewById(R.id.rescue_snk_id);
@@ -69,7 +81,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 dialog.show();
                 if(selectedImage != null) {
-                    StorageReference reference = storage.getReference().child("rescue").child(currtimeDate);
+                    String randomid= java.util.UUID.randomUUID().toString().substring(0, 5);
+                    String currtime=java.text.DateFormat.getDateTimeInstance().format(java.util.Calendar.getInstance().getTime());
+                    String randomid_and_time=randomid+"( "+currtime+" )";
+                    StorageReference reference = storage.getReference().child("rescue").child(randomid_and_time);
                     reference.putFile(selectedImage).addOnSuccessListener(taskSnapshot -> {
                         reference.getDownloadUrl().addOnSuccessListener(uri -> {
                             String url = uri.toString();
@@ -77,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
                             String name = rescue_name.getText().toString();
                             String auth_name = rescue_auth_name.getText().toString();
                             String loc = rescue_loc.getText().toString();
-                            String randomid= java.util.UUID.randomUUID().toString().substring(0, 5);
                             Snake model = new Snake(id, name, auth_name, loc, url,currtimeDate,randomid);
                             SnakeRelease model2=new SnakeRelease(id,randomid);
                             String uid=database.getReference().push().getKey();
@@ -85,6 +99,9 @@ public class MainActivity extends AppCompatActivity {
                             database.getReference().child("rescue").child(randomid).setValue(model2).addOnSuccessListener(aVoid -> {
                                 dialog.dismiss();
                                 Toast.makeText(MainActivity.this, "Rescue Added Successfully", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this, rescuecode.class);
+                                intent.putExtra("randomid",randomid);
+                                startActivity(intent);
                             });
                         });
                     });

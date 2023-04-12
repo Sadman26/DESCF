@@ -1,6 +1,7 @@
 package com.example.snake;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -38,6 +39,15 @@ public class release extends AppCompatActivity {
     Button releasebtn;
     String snake_id;
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 45 && resultCode == RESULT_OK && data != null) {
+            selectedImage = data.getData();
+            releaseimgbtn.setImageURI(selectedImage);
+        }
+    }
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +64,7 @@ public class release extends AppCompatActivity {
         releaseloc = findViewById(R.id.releaseloc);
         releasebtn = findViewById(R.id.releasebtn);
         releaseimgbtn = findViewById(R.id.releaseimgbtn);
+
         database.getReference().child("rescue").child(getIntent().getStringExtra("code")).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -95,7 +106,8 @@ public class release extends AppCompatActivity {
                 }
                 dialog.show();
                 if(selectedImage != null) {
-                    StorageReference reference = storage.getReference().child("rescue").child(currtimeDate);
+                    String finalrelease=snake_id+"("+currtimeDate+" )";
+                    StorageReference reference = storage.getReference().child("release").child(finalrelease);
                     reference.putFile(selectedImage).addOnSuccessListener(taskSnapshot -> {
                         reference.getDownloadUrl().addOnSuccessListener(uri -> {
                             String url = uri.toString();
