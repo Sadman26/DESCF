@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -28,16 +30,26 @@ public class MainActivity extends AppCompatActivity {
     Button rescuebtn;
     Uri selectedImage;
     ProgressDialog dialog;
+    ArrayList<Uri> selectedMedia = new ArrayList<>();
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 45 && resultCode == RESULT_OK && data != null) {
-            selectedImage = data.getData();
-            rescue_photo.setImageURI(selectedImage);
+            if (data.getClipData() != null) {
+                int count = data.getClipData().getItemCount();
+                for (int i = 0; i < count; i++) {
+                    Uri uri = data.getClipData().getItemAt(i).getUri();
+                    selectedMedia.add(uri);
+                }
+            } else if (data.getData() != null) {
+                Uri uri = data.getData();
+                selectedMedia.add(uri);
+            }
         }
     }
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -59,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
+                intent.setType("image/* video/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 startActivityForResult(intent, 45);
             }
         });
