@@ -81,7 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/releaseloc"
         app:layout_constraintVertical_bias="0.058"
-        app:srcCompat="@drawable/camera" />
+        app:srcCompat="@drawable/attachment" />
 
     <Button
         android:id="@+id/releasebtn"
