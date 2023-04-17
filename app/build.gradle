@@ -51,6 +51,5 @@ dependencies {
     //firebase ui
     implementation 'com.firebaseui:firebase-ui-database:8.0.0'
     implementation 'com.google.firebase:firebase-storage'
-    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
 }
