@@ -40,6 +40,7 @@ public class release extends AppCompatActivity {
     EditText releasebyname,releaseauthorbyname,releaseloc;
     String snake_id;
     TextView loll;
+    int counter=0;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -59,7 +60,7 @@ public class release extends AppCompatActivity {
                     snake_id=snakeIdObj.toString();
                 }
                 else{
-                    Toast.makeText(release.this, "No Snake Found", Toast.LENGTH_SHORT).show();
+
                 }
             }
             @Override
@@ -118,7 +119,7 @@ public class release extends AppCompatActivity {
         for(int j=0;j<FileList.size();j++){
             Uri PerFile=FileList.get(j);
             StorageReference folder= FirebaseStorage.getInstance().getReference().child("release").child(getIntent().getStringExtra("code"));
-            StorageReference filename=folder.child("("+getIntent().getStringExtra("code")+")"+PerFile.getLastPathSegment());
+            StorageReference filename=folder.child("(releasecode: "+getIntent().getStringExtra("code")+")"+PerFile.getLastPathSegment());
             filename.putFile(PerFile).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -129,7 +130,10 @@ public class release extends AppCompatActivity {
                             db.setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    Toast.makeText(release.this, "Wow! File Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                                    counter++;
+                                    if(counter==FileList.size()){
+                                        Toast.makeText(release.this, "Successfully Released!", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             });
                             db2.child(getIntent().getStringExtra("code")).removeValue();

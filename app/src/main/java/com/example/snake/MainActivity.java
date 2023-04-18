@@ -31,6 +31,7 @@ public class MainActivity  extends AppCompatActivity {
     private static final int PICK_FIlE = 1;
     ArrayList<Uri> FileList=new ArrayList<Uri>();
     EditText rescue_snk_id,rescue_name,rescue_auth_name,rescue_loc;
+    int counter=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +99,7 @@ public class MainActivity  extends AppCompatActivity {
         for(int j=0;j<FileList.size();j++){
             Uri PerFile=FileList.get(j);
             StorageReference folder= FirebaseStorage.getInstance().getReference().child("rescue").child(randomid);
-            StorageReference filename=folder.child("("+randomid+")"+PerFile.getLastPathSegment());
+            StorageReference filename=folder.child("(rescuecode: "+randomid+")"+PerFile.getLastPathSegment());
             filename.putFile(PerFile).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -110,7 +111,10 @@ public class MainActivity  extends AppCompatActivity {
                             db.setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    Toast.makeText(MainActivity.this, "Wow! File Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                                    counter++;
+                                    if(counter==FileList.size()){
+                                        Toast.makeText(MainActivity.this, "Successfully Rescued!", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             });
                             db2.child(randomid).setValue(model2);
