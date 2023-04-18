@@ -72,7 +72,7 @@ public class MainActivity  extends AppCompatActivity {
         String randomid= java.util.UUID.randomUUID().toString().substring(0, 5);
         for(int j=0;j<FileList.size();j++){
             Uri PerFile=FileList.get(j);
-            StorageReference folder= FirebaseStorage.getInstance().getReference().child(randomid);
+            StorageReference folder= FirebaseStorage.getInstance().getReference().child("rescue").child(randomid);
             StorageReference filename=folder.child(PerFile.getLastPathSegment());
             filename.putFile(PerFile).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
