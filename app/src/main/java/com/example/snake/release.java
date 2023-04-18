@@ -31,6 +31,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 
 public class release extends AppCompatActivity {
+    FirebaseDatabase database=FirebaseDatabase.getInstance();
 
     DatabaseReference db= FirebaseDatabase.getInstance().getReference().child("admin").child("release").push();
     DatabaseReference db2= FirebaseDatabase.getInstance().getReference().child("rescue");
@@ -50,10 +51,10 @@ public class release extends AppCompatActivity {
         loll.setText("Release Code: "+getIntent().getStringExtra("code"));
         releasebyname=findViewById(R.id.releasebyname);
         releaseauthorbyname=findViewById(R.id.releaseauthorbyname);
-        db2.child(getIntent().getStringExtra("code")).addValueEventListener(new ValueEventListener() {
+        database.getReference().child("rescue").child(getIntent().getStringExtra("code")).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                snake_id = snapshot.child("snakeid").getValue(String.class);
+                snake_id=snapshot.child("snakeid").getValue().toString();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
