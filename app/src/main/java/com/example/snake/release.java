@@ -54,7 +54,13 @@ public class release extends AppCompatActivity {
         database.getReference().child("rescue").child(getIntent().getStringExtra("code")).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                snake_id=snapshot.child("snakeid").getValue().toString();
+                Object snakeIdObj = snapshot.child("snakeid").getValue();
+                if(snakeIdObj!=null){
+                    snake_id=snakeIdObj.toString();
+                }
+                else{
+                    Toast.makeText(release.this, "No Snake Found", Toast.LENGTH_SHORT).show();
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
