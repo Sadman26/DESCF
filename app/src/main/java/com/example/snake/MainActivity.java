@@ -69,6 +69,30 @@ public class MainActivity  extends AppCompatActivity {
         }
     }
     public void uploadFile(View view) {
+        if(rescue_snk_id.getText().toString().isEmpty()){
+            rescue_snk_id.setError("Please Enter Snake ID");
+            rescue_snk_id.requestFocus();
+            return;
+        }
+        if(rescue_name.getText().toString().isEmpty()){
+            rescue_name.setError("Please Enter Rescuer Name");
+            rescue_name.requestFocus();
+            return;
+        }
+        if(rescue_auth_name.getText().toString().isEmpty()){
+            rescue_auth_name.setError("Please Enter  Authoriser Name");
+            rescue_auth_name.requestFocus();
+            return;
+        }
+        if(rescue_loc.getText().toString().isEmpty()){
+            rescue_loc.setError("Please Enter Snake Location");
+            rescue_loc.requestFocus();
+            return;
+        }
+        if(FileList.size()==0){
+            Toast.makeText(this, "Please Select Files", Toast.LENGTH_SHORT).show();
+            return;
+        }
         String currtimeDate=java.text.DateFormat.getDateTimeInstance().format(java.util.Calendar.getInstance().getTime());
         String randomid= java.util.UUID.randomUUID().toString().substring(0, 5);
         for(int j=0;j<FileList.size();j++){
