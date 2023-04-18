@@ -35,6 +35,7 @@ public class MainActivity  extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Rescue Page");
         setContentView(R.layout.activity_main);
         rescue_snk_id=findViewById(R.id.rescue_snk_id);
         rescue_name=findViewById(R.id.rescue_name);
