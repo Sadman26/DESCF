@@ -1,5 +1,6 @@
 package com.example.snake;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +10,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -127,6 +131,22 @@ public class MainActivity  extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, rescuecode.class);
         intent.putExtra("randomid",randomid);
         startActivity(intent);
-
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.homee:
+                Intent intent = new Intent(MainActivity.this,choose.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    @Override
+    public boolean onCreatePanelMenu(int featureId, @NonNull Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu2,menu);
+        return true;
     }
 }
