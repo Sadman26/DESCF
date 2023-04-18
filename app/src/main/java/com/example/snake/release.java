@@ -47,6 +47,8 @@ public class release extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_release);
+        //set title
+        getSupportActionBar().setTitle("Release Page");
         releaseloc=findViewById(R.id.releaseloc);
         loll=findViewById(R.id.loll);
         loll.setText("Release Code: "+getIntent().getStringExtra("code"));

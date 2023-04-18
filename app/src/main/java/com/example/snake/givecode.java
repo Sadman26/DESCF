@@ -30,6 +30,8 @@ public class givecode extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_givecode);
+        //set title
+        getSupportActionBar().setTitle("Give Rescued Code");
         DatabaseReference rescueRef = FirebaseDatabase.getInstance().getReference("rescue");
         givecode = findViewById(R.id.givecodetxt);
         givecodeimgbtn = findViewById(R.id.givecodebtn);
