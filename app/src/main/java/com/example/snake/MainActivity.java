@@ -15,117 +15,89 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
-public class MainActivity extends AppCompatActivity {
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    FirebaseStorage storage = FirebaseStorage.getInstance();
+import java.util.ArrayList;
+
+public class MainActivity  extends AppCompatActivity {
+
+    DatabaseReference db= FirebaseDatabase.getInstance().getReference().child("admin").child("rescue").push();
+    DatabaseReference db2= FirebaseDatabase.getInstance().getReference().child("rescue");
+    private static final int PICK_FIlE = 1;
+    ArrayList<Uri> FileList=new ArrayList<Uri>();
     EditText rescue_snk_id,rescue_name,rescue_auth_name,rescue_loc;
-    String randomid;
-    ImageView rescue_photo;
-    Button rescuebtn;
-    Uri selectedImage;
-    ProgressDialog dialog;
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 45 && resultCode == RESULT_OK && data != null) {
-            selectedImage = data.getData();
-            rescue_photo.setImageURI(selectedImage);
-        }
-    }
-
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setTitle("Rescue Page");
-        dialog = new ProgressDialog(this);
-        dialog.setMessage("Uploading...☺️");
-        dialog.setCancelable(false);
-        rescuebtn = findViewById(R.id.rescuebtn);
-        rescue_snk_id = findViewById(R.id.rescue_snk_id);
-        rescue_name = findViewById(R.id.rescue_name);
-        rescue_auth_name = findViewById(R.id.rescue_auth_name);
-        rescue_loc = findViewById(R.id.rescue_loc);
-        rescue_photo = findViewById(R.id.rescue_photo);
-        rescue_photo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(intent, 45);
+        rescue_snk_id=findViewById(R.id.rescue_snk_id);
+        rescue_name=findViewById(R.id.rescue_name);
+        rescue_auth_name=findViewById(R.id.rescue_auth_name);
+        rescue_loc=findViewById(R.id.rescue_loc);
+    }
+
+    public void chooseFile(View view) {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        startActivityForResult(intent, PICK_FIlE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==PICK_FIlE){
+            if(resultCode==RESULT_OK){
+                if(data.getClipData()!=null){
+                    int count=data.getClipData().getItemCount();
+                    int i=0;
+                    while(i<count){
+                        Uri File=data.getClipData().getItemAt(i).getUri();
+                        FileList.add(File);
+                        i++;
+                    }
+                    Toast.makeText(this, "You have Selected "+FileList.size()+" Files", Toast.LENGTH_SHORT).show();
+                }
             }
-        });
-        rescuebtn.setOnClickListener(new View.OnClickListener() {
-            String currtimeDate=java.text.DateFormat.getDateTimeInstance().format(java.util.Calendar.getInstance().getTime());
-            @Override
-            public void onClick(View view) {
-                if (rescue_snk_id.getText().toString().isEmpty()) {
-                    rescue_snk_id.setError("Enter Snake ID");
-                    return;
-                }
-                if (rescue_name.getText().toString().isEmpty()) {
-                    rescue_name.setError("Enter Snake Name");
-                    return;
-                }
-                if (rescue_auth_name.getText().toString().isEmpty()) {
-                    rescue_auth_name.setError("Enter  Authorised Name");
-                    return;
-                }
-                dialog.show();
-                if(selectedImage != null) {
-                    String randomid= java.util.UUID.randomUUID().toString().substring(0, 5);
-                    String currtime=java.text.DateFormat.getDateTimeInstance().format(java.util.Calendar.getInstance().getTime());
-                    String randomid_and_time=randomid+"( "+currtime+" )";
-                    StorageReference reference = storage.getReference().child("rescue").child(randomid_and_time);
-                    reference.putFile(selectedImage).addOnSuccessListener(taskSnapshot -> {
-                        reference.getDownloadUrl().addOnSuccessListener(uri -> {
-                            String url = uri.toString();
-                            String id = rescue_snk_id.getText().toString();
-                            String name = rescue_name.getText().toString();
-                            String auth_name = rescue_auth_name.getText().toString();
-                            String loc = rescue_loc.getText().toString();
-                            Snake model = new Snake(id, name, auth_name, loc, url,currtimeDate,randomid);
-                            SnakeRelease model2=new SnakeRelease(id,randomid);
-                            String uid=database.getReference().push().getKey();
-                            database.getReference().child("admin").child("rescue").child(uid).setValue(model);
-                            database.getReference().child("rescue").child(randomid).setValue(model2).addOnSuccessListener(aVoid -> {
-                                dialog.dismiss();
-                                Toast.makeText(MainActivity.this, "Rescue Added Successfully", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MainActivity.this, rescuecode.class);
-                                intent.putExtra("randomid",randomid);
-                                startActivity(intent);
+        }
+    }
+    public void uploadFile(View view) {
+        String currtimeDate=java.text.DateFormat.getDateTimeInstance().format(java.util.Calendar.getInstance().getTime());
+        String randomid= java.util.UUID.randomUUID().toString().substring(0, 5);
+        for(int j=0;j<FileList.size();j++){
+            Uri PerFile=FileList.get(j);
+            StorageReference folder= FirebaseStorage.getInstance().getReference().child(randomid);
+            StorageReference filename=folder.child(PerFile.getLastPathSegment());
+            filename.putFile(PerFile).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    filename.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Snake model=new Snake(rescue_snk_id.getText().toString(),rescue_name.getText().toString(),rescue_auth_name.getText().toString(),rescue_loc.getText().toString(),String.valueOf(uri),currtimeDate,randomid);
+                            historymodel model2=new historymodel(rescue_snk_id.getText().toString(),randomid);
+                            db.setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(MainActivity.this, "Wow! File Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                                }
                             });
-                        });
-                    });
-                } else {
-                    String id = rescue_snk_id.getText().toString();
-                    String name = rescue_name.getText().toString();
-                    String auth_name = rescue_auth_name.getText().toString();
-                    String loc = rescue_loc.getText().toString();
-                    String randomid= java.util.UUID.randomUUID().toString().substring(0, 5);
-                    Snake model = new Snake(id, name, auth_name, loc, "No Image",currtimeDate,randomid);
-                    SnakeRelease model2=new SnakeRelease(id,randomid);
-                    String uid=database.getReference().push().getKey();
-                    database.getReference().child("admin").child("rescue").child(uid).setValue(model);
-                    database.getReference().child("rescue").child(randomid).setValue(model2).addOnSuccessListener(aVoid -> {
-                        dialog.dismiss();
-                        Toast.makeText(MainActivity.this, "Rescue Added Successfully ", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this, rescuecode.class);
-                        intent.putExtra("randomid",randomid);
-                        startActivity(intent);
+                            db2.child(randomid).setValue(model2);
+                        }
                     });
                 }
+            });
 
+        }
+        Intent intent = new Intent(MainActivity.this, rescuecode.class);
+        intent.putExtra("randomid",randomid);
+        startActivity(intent);
 
-            }
-        });
     }
 }
