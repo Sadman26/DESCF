@@ -112,7 +112,7 @@ public class release extends AppCompatActivity {
         for(int j=0;j<FileList.size();j++){
             Uri PerFile=FileList.get(j);
             StorageReference folder= FirebaseStorage.getInstance().getReference().child("release").child(getIntent().getStringExtra("code"));
-            StorageReference filename=folder.child(PerFile.getLastPathSegment());
+            StorageReference filename=folder.child("("+getIntent().getStringExtra("code")+")"+PerFile.getLastPathSegment());
             filename.putFile(PerFile).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
