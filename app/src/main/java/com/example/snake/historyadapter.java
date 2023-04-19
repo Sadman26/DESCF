@@ -18,6 +18,9 @@ public class historyadapter extends FirebaseRecyclerAdapter<historymodel,history
 
     @Override
     protected void onBindViewHolder(@NonNull myhistoryadapter holder, int position, @NonNull historymodel model) {
+        if (position >= getItemCount()) {
+            return; // invalid position, do nothing
+        }
         holder.snakeidtxt.setText("Snake ID: " + model.getSnakeid());
         holder.snakecodetxt.setText("Rescue Code: " + model.getSnakecode());
     }
@@ -28,6 +31,7 @@ public class historyadapter extends FirebaseRecyclerAdapter<historymodel,history
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.singlerow,parent,false);
         return new myhistoryadapter(view);
     }
+
     class myhistoryadapter extends RecyclerView.ViewHolder {
         TextView snakeidtxt,snakecodetxt;
         public myhistoryadapter(@NonNull View itemView) {
