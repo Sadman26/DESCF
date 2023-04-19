@@ -58,21 +58,26 @@ public class MainActivity  extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==PICK_FIlE){
-            if(resultCode==RESULT_OK){
-                if(data.getClipData()!=null){
-                    int count=data.getClipData().getItemCount();
-                    int i=0;
-                    while(i<count){
-                        Uri File=data.getClipData().getItemAt(i).getUri();
-                        FileList.add(File);
-                        i++;
-                    }
-                    Toast.makeText(this, "You have Selected "+FileList.size()+" Files", Toast.LENGTH_SHORT).show();
+        if(requestCode == PICK_FIlE && resultCode == RESULT_OK) {
+            if(data.getClipData() != null) {
+                // Multiple files selected
+                int count = data.getClipData().getItemCount();
+                int i = 0;
+                while(i < count) {
+                    Uri fileUri = data.getClipData().getItemAt(i).getUri();
+                    FileList.add(fileUri);
+                    i++;
                 }
+                Toast.makeText(this, "You have selected " + FileList.size() + " files", Toast.LENGTH_SHORT).show();
+            } else if(data.getData() != null) {
+                // Single file selected
+                Uri fileUri = data.getData();
+                FileList.add(fileUri);
+                Toast.makeText(this, "You have selected 1 file", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
     public void uploadFile(View view) {
         if(rescue_snk_id.getText().toString().isEmpty()){
             rescue_snk_id.setError("Please Enter Snake ID");
