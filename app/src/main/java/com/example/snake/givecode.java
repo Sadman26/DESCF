@@ -41,19 +41,25 @@ public class givecode extends AppCompatActivity {
                 rescueRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        // Set a flag to keep track of whether a matching code was found
+                        boolean codeFound = false;
+
                         // Retrieve the children nodes
                         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                             String childKey = childSnapshot.getKey();
                             if (childKey.equals(givecode.getText().toString())) {
+                                codeFound = true;
                                 Toast.makeText(givecode.this, "Welcome ❤ !", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(givecode.this, release.class);
                                 intent.putExtra("code", givecode.getText().toString());
                                 startActivity(intent);
                                 break;
                             }
-                            else{
-                                Toast.makeText(givecode.this, "Upps No Rescue!☺️", Toast.LENGTH_SHORT).show();
-                            }
+                        }
+
+                        // Display "No rescue found" message only if no matching code was found
+                        if (!codeFound) {
+                            Toast.makeText(givecode.this, "Upps No Rescue!☺️", Toast.LENGTH_SHORT).show();
                         }
                     }
                     @Override
@@ -61,9 +67,9 @@ public class givecode extends AppCompatActivity {
 
                     }
                 });
-
             }
         });
+
     }
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
