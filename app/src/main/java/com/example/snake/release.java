@@ -135,7 +135,7 @@ public class release extends AppCompatActivity {
                     filename.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            Snake model=new Snake(snake_id,releasebyname.getText().toString(),releaseauthorbyname.getText().toString(),releaseloc.getText().toString(),String.valueOf(uri),currtimeDate);
+                            Snake model=new Snake(snake_id,releasebyname.getText().toString(),releaseauthorbyname.getText().toString(),releaseloc.getText().toString(),String.valueOf(uri),currtimeDate,getIntent().getStringExtra("code"));
                             db.setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
