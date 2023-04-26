@@ -10,6 +10,4 @@ Hi i have made this app using Java and for database i have used Firebase because
 <br>
 # Screenshots:
 
-1. ## Login Page:
-   ! [Login Page](https://github.com/Sadman26/DESCF/blob/master/ss/user0.png)
    
