@@ -9,5 +9,3 @@ Hi i have made this app using Java and for database i have used Firebase because
 <br>
 <br>
 # Screenshots:
-
-   
