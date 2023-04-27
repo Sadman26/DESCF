@@ -24,3 +24,12 @@ Hi i have made this app using Java and for database i have used Firebase because
     <br>
     <br>
     <img src="./ss/user1.png" width="100">
+    <br>
+    <br>
+-  ## Rescue page: 
+    This is the rescue page of the app. Where user will put the details of the rescue like Snake id , Rescuer name etc. Also the main important Authorisers name. Here user can Select Any kinds of files Single or multiple.
+     <br>
+     <br>
+     <img src="./ss/user2.png" width="100">
+     <br>
+     <br> 
