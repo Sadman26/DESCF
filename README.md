@@ -40,3 +40,24 @@ Hi i have made this app using Java and for database i have used Firebase because
      <img src="./ss/user3.png" width="100">
      <br>
      <br>
+-  ## History page:
+   This Page contains Snake id and Snake name.Which can be easier for the releaser.if the releaser have to release he had to give the key which is the basically random id generated after a successful resuce
+    <br>
+    <br>
+    <img src="./ss/user5.png" width="100">
+    <br>
+    <br>
+-  ## Rescue Code Verify page:
+    This is the page where releaser will put the code which is generated after a successful rescue. If the code is correct then the releaser can release the snake.
+     <br>
+     <br>
+     <img src="./ss/user4.png" width="100">
+     <br>
+     <br>
+-  ## Release page:
+    This is the release page of the app. Where user will put the details of the release like Snake id , Releaser name etc. Also the main important Authorisers name. Here user can Select Any kinds of files Single or multiple.
+     <br>
+     <br>
+     <img src="./ss/user6.png" width="100">
+     <br>
+     <br>
