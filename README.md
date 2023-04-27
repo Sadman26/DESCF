@@ -12,7 +12,7 @@ Hi i have made this app using Java and for database i have used Firebase because
 # SCREENSHOTS
 
  - ## Login Page:
-  This is the login page of the app. Here User can login with the key provided by the admin.
+    This is the login page of the app. Here User can login with the key provided by the admin.
     <br>
     <br>
     <img src="./ss/user0.png" width="100">
