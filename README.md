@@ -8,7 +8,7 @@ Hi i have made this app using Java and for database i have used Firebase because
 - This app is very easy to use and it is very user friendly.
 <br>
 <br>
-<h2> For Building this app please modify the `google-services.json` file with your own firebase project's `google-services.json` file. </h2>
+<h4> For Building this app please modify the <code>google-services.json</code> file with your own firebase project's <code>google-services.json</code> file. </h4>
 
 # SCREENSHOTS
 
