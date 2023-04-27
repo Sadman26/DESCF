@@ -32,4 +32,11 @@ Hi i have made this app using Java and for database i have used Firebase because
      <br>
      <img src="./ss/user2.png" width="100">
      <br>
-     <br> 
+     <br>
+-  ## Rescue Code page:
+    This is the Page where after a successful rescue there will be a code generated and by this code the releaser will release the Snake.Thats why this code is very important this code will store into history page
+     <br>
+     <br>
+     <img src="./ss/user3.png" width="100">
+     <br>
+     <br>
