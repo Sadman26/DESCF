@@ -1,5 +1,5 @@
 # DESCF
-This App was Created By Sadman Sakib Mahee!
+This App was Created By Sadman Sakib Mahee
 <br>
 Hi i have made this app using Java and for database i have used Firebase because firebase is easy to use and it is free.
 <br>
